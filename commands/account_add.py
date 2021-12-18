@@ -9,11 +9,14 @@ def detach_accounts():
 
 
 def add_single():
+    print("Введите данные от аккаунта в формате [логин] [пароль] (без скобок)")
     while True:
-        print("Введите данные от аккаунта в формате [логин] [пароль] (без скобок)")
         data = input("Ввод (q для выхода): ").strip()
         if data.lower() == 'q':
             return
+        if len(data.split(' ')) < 2:
+            print('Неверный формат ввода')
+            continue
         username, password = data.split(' ', maxsplit=1)
         if db.check_user(username):
             print(f"Пользователь '{username}' уже существует.")

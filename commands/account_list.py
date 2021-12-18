@@ -12,16 +12,7 @@ def print_list():
 
 
 def copy_list():
-    # print("Введите формат для вывода аккаунта (одна строка для одного аккаунта).")
-    # print("Можно использовать переменные:\n"
-    #       "{name} - ФИО участника\n"
-    #       "{login} - Логин участника\n"
-    #       "{pass} - Пароль участника. Ниже можно увидеть пример:")
-    # print("{name}: {login} {pass} // Joe Doe: joedoe42 passw000rd")
-    fmt = "{name}: {login} {pass}"
-    data = '\n'.join([fmt.format(**{'name': user['name'],
-                                    'login': user['username'],
-                                    'pass': user['password']}) for user in db.load_users()])
+    data = '\n'.join([f"{user['name']}: {user['username']} {user['password']}" for user in db.load_users()])
     try:
         pyperclip.copy(data)
     except pyperclip.PyperclipException:
