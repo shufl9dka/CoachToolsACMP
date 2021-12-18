@@ -19,7 +19,7 @@ HEADERS = {'Host': 'acmp.ru',
 def make_url(sub_url: str = '', **params):
     params_part = '&'.join([key + '=' + val for key, val in params.items()])
     if params_part:
-        params_part = '?' + params_part[1:]
+        params_part = '?' + params_part
     return URL_BASE + sub_url + params_part
 
 
@@ -43,11 +43,10 @@ def get_name(session: requests.Session):
 
 def change_password(session: requests.Session, old: str, new: str):
     try:
-        print(make_url('/index.asp', main='update', mode='ch_password'))
-        '''session.post(make_url('/index.asp', main='update', mode='ch_password'), headers=HEADERS,
+        session.post(make_url('/index.asp', main='update', mode='ch_password'), headers=HEADERS,
                      data={'reg_oldpsw': old,
                            'reg_password': new,
-                           'reg_password2': new})'''
+                           'reg_password2': new})
         return True
     except Exception:
         return False
