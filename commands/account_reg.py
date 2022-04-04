@@ -1,8 +1,4 @@
-from utils import solve_captcha, acmp_funcs, users as db, tools
-
-
-def good_captcha(captcha: str):
-    return len(captcha) == 6 and captcha.isdigit()
+from utils import acmp_funcs, users as db, tools, captcha_solving
 
 
 def registrator():
@@ -34,6 +30,11 @@ def registrator():
     current_idx = 0
     successes = 0
     occupied_usernames = set([user['username'] for user in db.load_users()])
+    captcha_solver = captcha_solving.tkinter_solver.TkinterSolver()
+
+    def good_captcha(_captcha: str):
+        return len(_captcha) == 6 and _captcha.isdigit()
+
     for name in names:
         current_idx += 1
         while fmt.format(**{'i': current_idx}) in occupied_usernames:
@@ -48,7 +49,7 @@ def registrator():
             if data is None:
                 print('Произошла ошибка получения капчи. Возможно, проблемы с соединением или аккаунт с таким логином уже существует.')
                 break
-            captcha = solve_captcha.solve(data)
+            captcha = captcha_solver.solve(data)
             if captcha == '!EXIT':
                 break
         else:

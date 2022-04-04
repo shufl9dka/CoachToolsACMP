@@ -17,7 +17,7 @@ def copy_list():
         pyperclip.copy(data)
     except pyperclip.PyperclipException:
         ans = input('Не удалось скопировать данные аккаунтов. Вывести их на экран? (д/н): ')
-        if ans.strip().lower() in 'yYдД':
+        if ans.strip().lower() in 'yд':
             print(data)
     else:
         print('Данные успешно скопированы в буфер обмена.')
